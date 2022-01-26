@@ -6,17 +6,21 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Icon, Box } from '@mui/material';
-import { AddIcon } from '@mui/icons-material';
 
-export default function FormDialog() {
+export default function FormDialog({sendData}) {
   const [open, setOpen] = React.useState(false);
+
+  const [title, setTitle] = React.useState(undefined);
+  const [description, setDescription] = React.useState(undefined);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    sendData(title, description)
+    setTitle(undefined);
+    setDescription(undefined);
     setOpen(false);
   };
 
@@ -38,10 +42,10 @@ export default function FormDialog() {
         +
       </div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add new note</DialogTitle>
+        <DialogTitle>Add a new note</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To create new note, please enter the data here.
+            To create a new note, please enter the data here.
           </DialogContentText>
           <TextField
             autoFocus
@@ -51,6 +55,7 @@ export default function FormDialog() {
             type="text"
             fullWidth
             variant="standard"
+            onChange={(e) => {setTitle(e.target.value)}}
           />
           <TextField
             margin="dense"
@@ -60,6 +65,7 @@ export default function FormDialog() {
             fullWidth
             multiline
             variant="standard"
+            onChange={(e) => {setDescription(e.target.value)}}
           />
         </DialogContent>
         <DialogActions>

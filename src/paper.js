@@ -1,20 +1,16 @@
-import * as React from 'react';
-import { Box, Paper } from '@mui/material';
+import React, { useState } from 'react';
+import Modal from "./Modal.js";
 
-export default function SimplePaper() {
+export default function Paper({title, description}) {
+
+  const [active, setActive] = useState(false);
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > :not(style)': {
-          m: 1,
-          width: 128,
-          height: 128,
-        },
-      }}
-    >
-      <Paper elevation={2} />
-    </Box>
+    <>
+      <div className="note-block" onClick={() => {setActive(true)}}>
+        <h2>{title}</h2>
+      </div>
+
+      <Modal active={active} setActive={setActive} title={title} description={description}/>
+    </>
   );
 }
